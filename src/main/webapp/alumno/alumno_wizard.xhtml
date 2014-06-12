@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:outputLabel value="hola"/>
+        <h:form>
+            <h:panelGrid columns="1" style="width: 100%" >
+                <p:wizard id="wizard">
+                    <p:tab title="Informacion Personal" id="personal">
+                        <p:panel header="Informacion Personal">
+                            <p:messages/>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel for="nombre" value="Nombre" styleClass="requiredLbl" />
+                                <p:inputText id="nombre" label="Nombre" value="#{alumno.nombre}" required="true" />
+
+                                <p:outputLabel for="apellidos1" value="Apellidos" styleClass="requiredLbl" />
+                                <p:inputText id="apellidos1" label="Apellidos" value="#{alumno.apellidos}" required="true" />
+
+                                <h:outputLabel for="nacimiento1" value="Fecha de Nacimiento" styleClass="requiredLbl" />
+                                <p:calendar id="nacimiento1" value="#{alumno.nacimiento}" showOn="button" style="width:100px;" navigator="true" />                                        
+
+
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab title="Direccion" id="direccion">
+                        <p:panel header="Direcciones">
+                            <p:messages/>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel for="dir1" value="Direccion 1" styleClass="requiredLbl" />
+                                <p:inputText id="dir1"  value="#{alumno.dir1}" required="true" />
+
+                                <p:outputLabel for="dir2" value="Direccion 2" styleClass="optionalLbl" />
+                                <p:inputText id="dir2" value="#{alumno.dir2}" />
+
+                                <p:outputLabel for="ciudad" value="Ciudad" styleClass="requiredLbl" />
+                                <p:inputText id="ciudad" value="#{alumno.ciudad}" required="true" />
+
+                                <p:outputLabel for="provincia" value="Provincia" styleClass="requiredLbl" />
+                                <h:selectOneMenu id="provincia" required="true" value="#{alumno.provincia}">
+                                    <f:selectItem itemValue="CH" itemLabel="Chiclayo" />
+                                    <f:selectItem itemValue="LA" itemLabel="Lambayeque" />
+                                    <f:selectItem itemValue="FE" itemLabel="Ferreñafe" />
+                                </h:selectOneMenu>
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </p:tab>
+
+                    <p:tab title="Telefono" id="telefono">
+                        <p:panel header="Telefonos">
+                            <p:messages/>
+                            <h:panelGrid columns="2" >
+                                <p:outputLabel for="casa" value="Casa" />
+                                <p:inputMask id="casa" mask="(999)-999-999" value="#{alumno.telefonocasa}" size="12" styleClass="optionalLbl" />
+
+                                <p:outputLabel for="movil" value="Movil"  styleClass="requiredLbl"/>
+                                <p:inputMask id="movil" mask="(999)-999-999-999" value="#{alumno.telefonomovil}" size="12" styleClass="requiredLbl" required="true"/>
+
+                                <p:outputLabel for="trabajo" value="Trabajo" />
+                                <p:inputMask id="trabajo" mask="(999)-999-999" value="#{alumno.telefonotrabajo}" size="12" styleClass="optionalLbl" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab title="Confirmacion" id="confirmacion">
+                        <p:messages/>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Nombre" styleClass="optionalLbl" />
+                            <h:outputText id="nombretxt" value="#{alumno.nombre}" />
+
+                            <h:outputText value="Apellidos" styleClass="optionalLbl" />
+                            <h:outputText id="apellidostxt" value="#{alumno.apellidos}" />
+
+                            <h:outputText value="Fecha de Nacimiento" styleClass="optionalLbl" />
+                            <h:outputText id="nacimientotxt" value="" />
+
+                            <h:outputText value="Direccion" styleClass="optionalLbl" />
+                            <h:panelGroup>
+                                <h:outputText value="#{alumno.dir1}" />
+                                <h:outputText value="," rendered="#{empty alumno.dir2}" />
+                                <br/>
+                                <h:outputText value="#{alumno.dir2}," rendered="#{not empty alumno.dir2}" />
+
+                                <f:verbatim rendered="#{not empty alumno.dir2}"><br/></f:verbatim>
+                                <h:outputText value="#{alumno.ciudad}, #{alumno.provincia}" />
+                            </h:panelGroup>                        
+                            <h:outputText value="Casa" styleClass="optionalLbl" />
+                            <h:outputText id="casatxt" value="#{alumno.telefonocasa}" />
+
+                            <h:outputText value="Movil" styleClass="optionalLbl" />
+                            <h:outputText id="moviltxt" value="#{alumno.telefonomovil}" />
+
+                            <h:outputText value="Trabajo" styleClass="optionalLbl" />
+                            <h:outputText id="trabajotxt" value="#{alumno.telefonotrabajo}" />
+
+                            <p:commandButton id="submitButton" value="Enviar" actionListener="#{alumnoController.salvarAlumno(actionEvent)}" ajax="false" />
+                        </h:panelGrid>
+                    </p:tab>
+
+                </p:wizard>
+
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
